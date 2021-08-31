@@ -1,13 +1,40 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+// require('dotenv').config
 import './index.css';
-import App from './App';
+import {BrowserRouter as Router ,Switch,Route} from 'react-router-dom';
+// import Post from './components/feed/post';
+import AppState from './context/appState';
+import Feed from './FinalFeed';
+import Nav from './components/navbar'
+import Register from './components/register'
+// import ProjectCard from './components/feed/projectCard';
+// import UserInfo from './components/feed/userinfo';
+import Login from './components/login'
+import Profile from './components/profile/profile';
+// import App from './App';
 import reportWebVitals from './reportWebVitals';
-
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <>
+  <Router>
+       <div>
+       <AppState>
+       <Nav />
+    <Switch>
+      <Route path="/" exact component={Login}/>
+      <Route path="/feed" exact component={Feed}/>
+      <Route path="/profile"  exact component={Profile}/>
+      <Route path="/register"  exact component={Register}/>
+      
+    </Switch>
+    </AppState>
+       </div>
+
+    {/* <Feed/> */}
+    {/* <Profile/> */}
+  </Router>
+    
+  </>,
   document.getElementById('root')
 );
 
@@ -15,3 +42,9 @@ ReactDOM.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+
+
+
+// git config --global user.name "Pramod Kumar S Sarvi"
+// git config --global user.email "pramodkumarssarvi@gmail.com"
+// git remote add origin https://github.com/darth-coder24/qna.git

@@ -1,6 +1,8 @@
 import './login.css'
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import { useEffect, useState,useContext } from 'react';
+import state from '../state/state';
+import { useSnapshot } from 'valtio'
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import Nav from './navbar'
@@ -38,7 +40,7 @@ function Login() {
       setRtoken(response.data.refreshToken);
       setAtoken(response.data.accessToken);
       localStorage.setItem('token',atoken);
-
+      state.username='ASDF';
       window.sessionStorage.setItem("QnARToken", rtoken);
       window.sessionStorage.setItem("QnAAToken", atoken);
       console.log(window.sessionStorage.getItem("QnARToken"));

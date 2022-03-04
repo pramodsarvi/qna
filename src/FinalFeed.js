@@ -1,4 +1,6 @@
 import { useState,useContext, useEffect } from 'react';
+import {  useSnapshot } from 'valtio';
+import state from './state/state.js'
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import Post from './components/feed/post';
 import Feed from './components/feed/feed.js';
@@ -14,6 +16,7 @@ import AppContext from './context/globalstate';
 import Login from './components/login';
 function FinalFeed()
 {
+    const snap=useSnapshot(state);
     const {rtoken,setRtoken,atoken,setAtoken,isauthenticated,setIsauthenticated,search,setSearch,message}=useContext(AppContext)
     const [data,setData]=useState();    
     const [name, setname] = useState()
@@ -52,10 +55,9 @@ const searchuser=()=>{ const token=`Bearer ${atoken}`
 
     const call=()=>{
         // console.log("FEED")
-        const token=`Bearer ${atoken}`
-        const body={"authorization":token}
+        const token=`Bearer ${atoken}`;
+        const body={"authorization":token};
         console.log("Hello there"+process.env.REACT_APP_NODE)
-    
         // axios.post("/userinfo",body)
         // .then((response)=>{;console.log(response);setname(response.data[0].name);setemail(response.data[0].email);setweb(response.data[0].website);setdesc(response.data[0].description);setgit(response.data[0].github);setinsta(response.data[0].instagram);setfacebook(response.data[0].facebook)})
         // .catch(err=>{console.log('error\n');console.log(err)})
@@ -71,7 +73,8 @@ const searchuser=()=>{ const token=`Bearer ${atoken}`
     }
     useEffect(() => {
         // Update the document title using the browser API
-        console.log("aaaaaaaaaaaaaaaaaaaaa"+atoken)
+        // console.log("aaaaaaaaaaaaaaaaaaaaa"+atoken)
+        console.log(snap.token)
     call();
       },[]);
     const postcomment=(id,comment)=>{
@@ -101,7 +104,7 @@ const searchuser=()=>{ const token=`Bearer ${atoken}`
 <br></br>
     <NewNavbar></NewNavbar>
     <br></br>
-    {localStorage.getItem('token')+'HI'}
+    {snap.token}
     <div class="container-fluid gedf-wrapper">
         <div class="row">
             <UserInfo name={name} desc={desc}/>

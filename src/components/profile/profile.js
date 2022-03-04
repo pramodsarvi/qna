@@ -22,7 +22,7 @@ function Profile()
   const call=()=>
   {
     try{
-      axios.post("http://localhost:5000/user",body)
+      axios.post("/user",body)
     .then(response=>{setname(response.data[0].name);setemail(response.data[0].email);setweb(response.data[0].website);
       setdesc(response.data[0].description);setgit(response.data[0].github);setinsta(response.data[0].instagram);setfacebook(response.data[0].facebook)})
       
@@ -44,7 +44,7 @@ function Profile()
 
 if(name===undefined)
   return <h1>NO results</h1>
-    return(
+return(
         <>
         <div class="container">
     <div class="main-body">

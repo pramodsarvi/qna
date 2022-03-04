@@ -6,11 +6,11 @@ import {BrowserRouter as Router ,Switch,Route} from 'react-router-dom';
 // import Post from './components/feed/post';
 import AppState from './context/appState';
 import Feed from './FinalFeed';
-import Nav from './components/navbar'
+import Edit from './components/editprofile';
 import Register from './components/register'
 // import ProjectCard from './components/feed/projectCard';
 // import UserInfo from './components/feed/userinfo';
-import Login from './components/login'
+import Login from './components/login';
 import Profile from './components/profile/profile';
 // import App from './App';
 import reportWebVitals from './reportWebVitals';
@@ -19,9 +19,10 @@ ReactDOM.render(
   <Router>
        <div>
        <AppState>
-       <Nav />
+       
     <Switch>
       <Route path="/" exact component={Login}/>
+      <Route path="/edit"  exact component={Edit}/>
       <Route path="/feed" exact component={Feed}/>
       <Route path="/profile"  exact component={Profile}/>
       <Route path="/register"  exact component={Register}/>

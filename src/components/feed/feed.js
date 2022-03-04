@@ -30,7 +30,7 @@ const [comment,setComment]=useState('')
 //   }
 
 
-    // axios.post("http://localhost:5000/comment",body)
+    // axios.post("/comment",body)
     // .then(response=>console.log(response))
     // .catch(err=>console.log(err))
     // console.log("Hello there")

@@ -12,7 +12,7 @@ function Comments(props)
         const id=props.id;
         const body={"id":id}
         console.log(body)
-    axios.post("http://localhost:5000/cmnt",body)
+    axios.post("/cmnt",body)
     .then(response=>{setData(response.data)})
     .catch(err=>console.log(err))
     }

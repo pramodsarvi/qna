@@ -70,7 +70,7 @@ const un=uname;
 
 const body={"name":n,"username":un,"email":e,"phone":p,"website":w,"facebook":f,"gender":ge,"instagram":ins,"description":dec,"github":gi,"password":pass}
 console.log(body)   
-axios.post('/register',body)
+axios.post('http://localhost:5000/register',body)
     .then((response)=>{
       console.log(response.data);
     })
@@ -143,9 +143,9 @@ axios.post('/register',body)
                         
                         </div>
                         <div className="mt-4 pt-2">
-                            <Link to='/'>
+                            {/* <Link to='/'> */}
                             <input className="btn btn-primary btn-md" type="submit" value="Submit" onClick={register} />
-                            </Link>
+                            {/* </Link> */}
                         </div>
                   </form>
                 </div>

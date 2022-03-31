@@ -13,13 +13,13 @@ function ProjectCard2(props)
         const token=tok.replace(/["']/g, "")
   const body={"authorization":token,projectid:props.id}
   axios.post("http://localhost:5000/api/deleteproject",body)
-        .then((response)=>{setDisplay('none')})
+        .then((response)=>{setDisplay('None')})
         .catch(err=>{console.log('error\n');console.log(err)})
     }
     return(
 
         <>
-          <div className="card gedf-card w-25 p-3 m-2" display={display} >
+          <div className="card gedf-card w-25 p-3 m-2" style={{display:{display}}} >
                     <div className="card-body">
                         <h5 className="card-title">{props.title}</h5>
                         <h6 className="card-subtitle mb-2 text-muted">{props.title}</h6>

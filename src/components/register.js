@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useState } from 'react';
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import Nav from '../components/navbar'
+import { Button } from 'bootstrap';
 function Register()
 {
     const [name,setName]=useState("")
@@ -142,16 +143,23 @@ axios.post('http://localhost:5000/register',body)
                         </div>
                         
                         </div>
-                        <div className="mt-4 pt-2">
-                            {/* <Link to='/'> */}
-                            <input className="btn btn-primary btn-md" type="submit" value="Submit" onClick={register} />
-                            {/* </Link> */}
-                        </div>
+                        
+                        <div className="d-grid ">
+                  <button className="btn-primary btn-login text-uppercase fw-bold" onClick={register}>
+                    Register
+                  </button>
+                </div>
+                <br></br>
+                <div className="d-grid">
+                  <Link to='/'>
+                  <button className="btn-primary btn-login text-uppercase fw-bold" >
+                    LogIn
+                  </button>
+                  </Link>
+                </div>
                   </form>
                 </div>
-                <div>
-                     <a href='/'>Login Here</a>
-                </div>
+                
               </div>
               
             </div>

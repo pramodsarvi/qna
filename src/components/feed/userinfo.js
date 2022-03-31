@@ -13,7 +13,7 @@ function UserInfo(props)
                         <div class="mt-3">
                           <h4>{props.name}</h4>
                           <p class="text-secondary mb-1">{props.desc}</p>
-                          <p class="text-muted font-size-sm">Bay Area, San Francisco, CA</p>
+                          <p class="text-secondary mb-1">{props.git}</p>
                            {/* <button class="btn btn-primary">Follow</button>
                           <button class="btn btn-outline-primary">Message</button> */}
                         </div>

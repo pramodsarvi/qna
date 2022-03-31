@@ -14,9 +14,11 @@ import { FaSearch } from "react-icons/fa";
 import axios from 'axios';
 import AppContext from './context/globalstate';
 import Login from './components/login';
+import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
 function FinalFeed()
 {
     const snap=useSnapshot(state);
+    const location=useLocation();
     const {rtoken,setRtoken,atoken,setAtoken,isauthenticated,setIsauthenticated,search,setSearch,message}=useContext(AppContext)
     const [data,setData]=useState();    
     const [name, setname] = useState()
@@ -32,50 +34,68 @@ function FinalFeed()
     const [userChange,setUserchange]=useState();
     const searchp=(e)=>{setSearchproject(e.target.value)}
     const schange=(e)=>{setSearch(e.target.value)}
+
     
     
     const projsearch=()=>{
-        const token=`Bearer ${atoken}`;
+        var to="Bearer ";
+        const tok=to.concat(JSON.parse(localStorage.getItem('accessToken')));
+        const token=tok.replace(/["']/g, "")
         const searchstring=`${searchproject}`;
         console.log(searchproject)
         console.log(searchstring+"hi")
     const body={"authorization":token,search:searchstring}
-axios.post('/getprojects',body)
+    console.log(body)
+    axios.post('http://localhost:5000/api/getprojects',body)
 .then((response)=>{setProjectresult(response.data.data)}
 )
 
 }
 const suchange=(e)=>{setUserchange(e.target.value)}
 
-const searchuser=()=>{ const token=`Bearer ${atoken}`
+const searchuser=()=>{ 
+    var to="Bearer ";
+    const tok=to.concat(JSON.parse(localStorage.getItem('accessToken')));
+    const token=tok.replace(/["']/g, "")
     const body={"authorization":token,name:`${userChange}`}
-    axios.post('/user',body).then((response)=>{setUserresp(response.data.data)})
+    axios.post('http://localhost:5000/api/user',body).then((response)=>{setUserresp(response.data.data)})
  }
 
 
     const call=()=>{
-        // console.log("FEED")
-        const token=`Bearer ${atoken}`;
+        console.log("FEED")
+        console.log(JSON.parse(localStorage.getItem('accessToken')));
+        var to="Bearer ";
+        const tok=to.concat(JSON.parse(localStorage.getItem('accessToken')));
+        const token=tok.replace(/["']/g, "")
+        console.log(token)
+        // const token=`Bearer ${sessionStorage.getItem('accessToken')}`
         const body={"authorization":token};
-        console.log("Hello there"+process.env.REACT_APP_NODE)
-        // axios.post("/userinfo",body)
-        // .then((response)=>{;console.log(response);setname(response.data[0].name);setemail(response.data[0].email);setweb(response.data[0].website);setdesc(response.data[0].description);setgit(response.data[0].github);setinsta(response.data[0].instagram);setfacebook(response.data[0].facebook)})
-        // .catch(err=>{console.log('error\n');console.log(err)})
+        // console.log("Hello there"+process.env.REACT_APP_NODE)
+        axios.post("http://localhost:5000/api/userinfo",body)
+        .then((response)=>{;console.log('My data');console.log(response.data.data);setname(response.data.data.name);setemail(response.data.data.email);setweb(response.data.data.website);setdesc(response.data.data.description);setgit(response.data.data.github);setinsta(response.data.data.instagram);setfacebook(response.data.data.facebook)})
+        .catch(err=>{console.log('error\n');console.log(err)})
         
 
         //   const body={"authorization":token}
-
+        // console.log(token)
     
-        axios.post("/feed",body)
-        .then((response)=>{console.log(response);setData(response.data);console.log(response.data)})
-        .catch((err)=>{console.log(err)})
-        console.log(data)
+        // axios.post("/feed",body)
+        // .then((response)=>{console.log(response);setData(response.data);console.log(response.data)})
+        // .catch((err)=>{console.log(err)})
+        // console.log(data)
     }
     useEffect(() => {
-        // Update the document title using the browser API
+        // Update the document title using the browser API        
+        call();
         // console.log("aaaaaaaaaaaaaaaaaaaaa"+atoken)
-        console.log(snap.token)
-    call();
+        // console.log(snap.rtoken)
+        // const rt=snap.rtoken;
+        // const at=snap.atoken;
+        // state.rtoken=rt;
+        // state.atoken=at;
+        console.log("sessionStorage.getItem('accessToken')")
+        console.log(sessionStorage.getItem('accessToken'))
       },[]);
     const postcomment=(id,comment)=>{
         const c=comment
@@ -91,7 +111,7 @@ const searchuser=()=>{ const token=`Bearer ${atoken}`
       }
     // console.log({rtoken})
     // console.log({isauthenticated})
-    if(window.sessionStorage.getItem("QnAAToken")==null)
+    if(sessionStorage.getItem('isAuth')==="false")
     {
         return (<>
         <Login></Login>
@@ -104,10 +124,9 @@ const searchuser=()=>{ const token=`Bearer ${atoken}`
 <br></br>
     <NewNavbar></NewNavbar>
     <br></br>
-    {snap.token}
     <div class="container-fluid gedf-wrapper">
         <div class="row">
-            <UserInfo name={name} desc={desc}/>
+            <UserInfo name={name} desc={desc} git={git}/>
             
 
             <div class="col-md-6 gedf-main"> 
@@ -144,7 +163,7 @@ const searchuser=()=>{ const token=`Bearer ${atoken}`
                         </div>
                     </form>
                 {usersresp && usersresp.map((e)=>{
-     return <User name={e.name} />
+     return <User name={e.name} desc={e.description} git={e.github} email={e.email}/>
      })
      }
                     <div>
@@ -186,7 +205,7 @@ const searchuser=()=>{ const token=`Bearer ${atoken}`
                 {projectresult && projectresult.map((e)=>{
 
                     //  console.log(e);
-                    return <Projects title={e.title} name={e.name} skill={e.skills} description={e.qdescription} post={postcomment}/>
+                    return <Projects id={e.id} title={e.title} name={e.name} skill={e.skills} git={e.github} post={postcomment}/>
                 })
                 }
 

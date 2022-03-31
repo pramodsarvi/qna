@@ -1,3 +1,3 @@
 import {proxy} from "valtio";
-const state=proxy({rtoken:'asdf'})
+const state=proxy({rtoken:'',atoken:''})
 export default state;

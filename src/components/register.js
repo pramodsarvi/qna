@@ -18,16 +18,11 @@ function Register()
     const [g,setG]=useState('')
     const [password,setPassword]=useState('')
    const [uname,setUname]=useState('')
-    const change=(e)=>{setId(e.target.value)}
    const namechange=(e)=>{setName(e.target.value)}
    const mailchange=(e)=>{setEmail(e.target.value)}
-   const pchange=(e)=>{setPhone(e.target.value)}
    const webchange=(e)=>{setWeb(e.target.value)}
    const gitchange=(e)=>{setGit(e.target.value)}
-   const instachange=(e)=>{setInsta(e.target.value)}
-   const fbchange=(e)=>{setFacebook(e.target.value)}
    const deschange=(e)=>{setDesc(e.target.value)}
-   const gchange=(e)=>{setG(e.target.value)}
     const passchange=(e)=>{setPassword(e.target.value)}
     const unamechange=(e)=>{setUname(e.target.value)}
     

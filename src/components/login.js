@@ -3,11 +3,13 @@ import '../../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import { useEffect, useState,useContext } from 'react';
 import state from '../state/state';
 import { useSnapshot } from 'valtio'
-import {Link} from 'react-router-dom';
+import { Link, useHistory} from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Nav from './navbar'
 import AppContext from '../context/globalstate';
 function Login() {
+  const history = useHistory();
   const {rtoken,setRtoken,atoken,setAtoken,isauthenticated,setIsauthenticated,search,setSearch,message}=useContext(AppContext)
   // console.log({rtoken})
   useEffect(() => {
@@ -26,27 +28,29 @@ function Login() {
   
   const uchange=(e)=>{setUsername(e.target.value)}
   const pchange=(e)=>{setPassword(e.target.value)}
-  const login=async ()=>{
+  const login=async (e, path)=>{
+    
+    e.preventDefault()
     // setUsername('req.body.username')
     // setPassword('req.body.password')
     const a=username;
     const b=password;
     // console.log(a)
     const body={"username":a,"password":b}
-    axios.post('/login',body)
+    axios.post('http://localhost:5000/login',body)
     .then((response)=>{
-
+      console.log("login")
       setIsauthenticated("true");
       setRtoken(response.data.refreshToken);
       setAtoken(response.data.accessToken);
-      localStorage.setItem('token',atoken);
-      state.username='ASDF';
-      window.sessionStorage.setItem("QnARToken", rtoken);
-      window.sessionStorage.setItem("QnAAToken", atoken);
-      console.log(window.sessionStorage.getItem("QnARToken"));
+      localStorage.setItem('accessToken',JSON.stringify(response.data.accessToken));
+      localStorage.setItem('refreshToken',JSON.stringify(response.data.accessToken));
+      console.log(JSON.parse(localStorage.getItem('accessToken')));
     })
     .catch(err=>setIsauthenticated('false'))
     // .then()
+    setTimeout(() =>history.push(path), 3000);
+
   }
   // console.log({rtoken})
 
@@ -76,10 +80,10 @@ return (
                   </label>
                 </div>
                 <div className="d-grid">
-                  <Link to='/feed'>
-                  <button className="btn btn-primary btn-login text-uppercase fw-bold" type="submit" onClick={login}>Sign
+                  {/* <Link to='/feed'> */}
+                  <button className="btn btn-primary btn-login text-uppercase fw-bold" type="submit" onClick={(e)=>{login(e, "/feed")}}>Sign
                     in</button>
-                  </Link>
+                  {/* </Link> */}
                 </div>
                 <hr className="my-4"/>
                 <div className="d-grid mb-2">

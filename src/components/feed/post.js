@@ -7,21 +7,21 @@ import axios from 'axios';
 function Post(props)
 {    const {rtoken,setRtoken,atoken,setAtoken,isauthenticated,setIsauthenticated,message}=useContext(AppContext);
 const [title,setTitle]=useState("");
-const [comment,setComment]=useState("");
-const cchange=(e)=>{setComment(e.target.value)}
-const tchange=(e)=>{setTitle(e.target.value)}
+const [git,setGit]=useState("");
+const [skill,setSkill]=useState("");
+const changeGit=(e)=>{setGit(e.target.value)}
+const changeTitle=(e)=>{setTitle(e.target.value)}
+const changeSkill=(e)=>{setSkill(e.target.value)}
 const post=()=>{
 console.log("post")
-
 const t=title;
-const d=comment.replace("'","\'");
+const d=skill.replace("'","\'");
 const desc=d;
-const token=`Bearer ${atoken}`
-const body={"authorization":token,"title":t,"desc":desc,'skills':'random skill'}
-// const h={}
+const token=`Bearer ${localStorage.getItem('accessToken')}`;
+const body={"authorization":token,"title":t,"skills":desc,'github':git}
 console.log(token)
 axios.post("/postproject",body)
-.then(response=>console.log(response))
+.then(response=>{setTitle();setGit();setSkill()})
 .catch(err=>console.log(err))
 
 }
@@ -37,11 +37,11 @@ return (
                                 <div className="form-group">
                                     {/* <label className="sr-only" for="message">post</label> */}
                                     <br/>
-                                    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Title" onChange={tchange}></input>
+                                    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder='Title' onChange={changeTitle} value={title}></input>
                                     <br/>
-                                    <textarea className="form-control" id="message" rows="1" placeholder="Skills" onChange={cchange}></textarea>
+                                    <textarea className="form-control" id="message" rows="1" placeholder='Skill' onChange={changeSkill} value={skill}></textarea>
                                     <br/>
-                                    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="GitHub Link" onChange={tchange}></input>
+                                    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder='Git' onChange={changeGit} value={git}></input>
                                     <br></br>
                                 </div>
                                 <div> 
@@ -78,12 +78,3 @@ return (
 }
 export default Post;
 
-
-//  <div className="btn-group" role="group" aria-label="Basic radio toggle button group">
-//   <input type="radio" className="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
-//   <label className="btn btn-outline-primary" for="btnradio1">Radio 1</label>
-
-//   <input type="radio" className="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-//   <label className="btn btn-outline-primary" for="btnradio2">Radio 2</label>
-
-// </div> 

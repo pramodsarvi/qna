@@ -5,6 +5,7 @@ import {  useSnapshot } from 'valtio';
 import state from '../state/state.js';
 import Project2 from './projectcard2'
 import axios from 'axios';
+import Progress from './Progress';
 import AppContext from '../context/globalstate';
 
 import {  Navbar, Nav, NavItem,Container, NavDropdown,MenuItem} from 'react-bootstrap';
@@ -13,7 +14,68 @@ import ProjectCard2 from './projectcard2';
 function Editprofile()
 {
   const snap=useSnapshot(state);
-  const {rtoken,setRtoken,atoken,setAtoken,isauthenticated,setIsauthenticated,search,setSearch,message}=useContext(AppContext)
+  const [file, setFile] = useState('');
+  const [filename, setFilename] = useState('Choose File');
+  const [uploadedFile, setUploadedFile] = useState({});
+  const [message, setMessage] = useState('');
+  const [uploadPercentage, setUploadPercentage] = useState(0);
+
+  const onSubmit = async e => {
+    e.preventDefault();
+    console.log(file);
+    console.log(filename);
+    var to="Bearer ";
+        const tok=to.concat(JSON.parse(localStorage.getItem('accessToken')));
+        const token=tok.replace(/["']/g, "")
+    const formData = new FormData();
+    formData.append('file', file);
+    // formData.append('abc', "file");
+    // console.log(file)
+    formData.append("authorization",token)
+
+    try {
+
+      console.log("formData")
+      console.log(formData)
+
+      const res = await axios.post('http://localhost:5000/api/uploadimage', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'authorization':token
+        },
+        onUploadProgress: progressEvent => {
+          setUploadPercentage(
+            parseInt(
+              Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            )
+          );
+        }
+      });
+      
+      // Clear percentage
+      setTimeout(() => setUploadPercentage(0), 10000);
+
+      const { fileName, filePath } = res.data;
+
+      setUploadedFile({ fileName, filePath });
+
+      setMessage('File Uploaded');
+   
+    
+    } catch (err) {
+      if (err.response.status === 500) {
+        setMessage('There was a problem with the server');
+      } else {
+        setMessage(err.response.data.msg);
+      }
+      setUploadPercentage(0)
+    }
+  };
+
+  const fileChange = e => {
+    setFile(e.target.files[0]);
+    setFilename(e.target.files[0].name);
+  };
 
   const [name,setName]=useState("")
     const [email,setEmail]=useState("")
@@ -61,7 +123,7 @@ const getdata=()=>{
         const token=tok.replace(/["']/g, "")
   const body={"authorization":token}
   axios.post("http://localhost:5000/api/userinfo",body)
-        .then((response)=>{console.log('GETDATA');console.log(response.data.data);setName(response.data.data.name);setEmail(response.data.data.email);setDesc(response.data.data.description);setGit(response.data.data.github);})
+        .then((response)=>{setName(response.data.data.name);setEmail(response.data.data.email);setDesc(response.data.data.description);setGit(response.data.data.github);})
         .catch(err=>{console.log('error\n');console.log(err)})
       
 }
@@ -71,7 +133,7 @@ const getmyprojects=()=>{
         const token=tok.replace(/["']/g, "")
   const body={"authorization":token}
   axios.post("http://localhost:5000/api/getmyprojects",body)
-        .then((response)=>{console.log('MY PROJECTS');console.log(response.data.data);setMyprojects(response.data.data)})
+        .then((response)=>{setMyprojects(response.data.data)})
         .catch(err=>{console.log('error\n');console.log(err)})
 }
 const update=()=>{
@@ -177,9 +239,30 @@ axios.post('http://localhost:5000/api/updateprofile',body)
                             {/* <Link to='/'> */}
                             <button className="btn btn-primary btn-md" type="submit" value="Update" onClick={update}  >Update</button>
                             {/* </Link> */}
-                            {atoken}
                         </div>
                   </form>
+                  <form onSubmit={onSubmit}>
+        <div className='custom-file mb-4'>
+          <input
+            type='file'
+            className='custom-file-input'
+            id='customFile'
+            onChange={fileChange}
+          />
+          <label className='custom-file-label' htmlFor='customFile'>
+            {filename}
+          </label>
+        </div>
+
+        <Progress percentage={uploadPercentage} />
+
+        <input
+          type='submit'
+          value='Upload'
+          className='btn btn-primary btn-block mt-4'
+        />
+      </form>
+      
                 </div>
               </div>
             </div>
@@ -194,6 +277,7 @@ axios.post('http://localhost:5000/api/updateprofile',body)
                 }
 
     </div>
+   
         </>
     );
 };

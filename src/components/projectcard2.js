@@ -6,7 +6,6 @@ import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 function ProjectCard2(props)
 {
   const [display,setDisplay]=useState("block")
-    console.log(props.id)
     const deleteproject=()=>{
         var to="Bearer ";
         const tok=to.concat(JSON.parse(localStorage.getItem('accessToken')));

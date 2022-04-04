@@ -1,22 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { useEffect, useState,useContext } from 'react';
-import AppContext from '../context/globalstate';
-import { Button, Navbar, Nav, NavItem,Container, NavDropdown, MenuItem } from 'react-bootstrap';
+import { Navbar, Nav,Container } from 'react-bootstrap';
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import '../../node_modules/bootstrap/dist/js/bootstrap.js'
-import axios from 'axios'
 export default function App() {
-  const {rtoken,setRtoken,atoken,setAtoken,isauthenticated,setIsauthenticated,search,setSearch,message}=useContext(AppContext)
-  const token=`Bearer ${atoken}`
-  const body={"authorization":token}
+  
   // const h={}
-  const logout=()=>{
-    axios.post("/logout",body)
-    .then(response=>{console.log(response);setIsauthenticated('false')})
-    .catch(err=>console.log(err))
-
-  }
+  
 //   <nav class="navbar navbar-expand-lg navbar-light bg-light">
 //   <a class="navbar-brand" href="#">QnA</a>
 //   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

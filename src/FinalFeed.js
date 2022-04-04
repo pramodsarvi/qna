@@ -1,9 +1,6 @@
-import { useState,useContext, useEffect } from 'react';
-import {  useSnapshot } from 'valtio';
-import state from './state/state.js'
+import { useState, useEffect } from 'react';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import Post from './components/feed/post';
-import Feed from './components/feed/feed.js';
 import User from './components/profile/user'
 
 // import ProjectCard from './components/feed/projectCard';
@@ -12,28 +9,19 @@ import Projects from './components/feed/projectCard'
 import UserInfo from './components/feed/userinfo';
 import { FaSearch } from "react-icons/fa";
 import axios from 'axios';
-import AppContext from './context/globalstate';
 import Login from './components/login';
-import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
 function FinalFeed()
-{
-    const snap=useSnapshot(state);
-    const location=useLocation();
-    const {rtoken,setRtoken,atoken,setAtoken,isauthenticated,setIsauthenticated,search,setSearch,message}=useContext(AppContext)
-    const [data,setData]=useState();    
+{    
     const [name, setname] = useState()
-    const [email, setemail] = useState()
-    const [web, setweb] = useState()
     const [desc, setdesc] = useState()
     const [git, setgit] = useState()
-    const [insta, setinsta] = useState()
-    const [facebook, setfacebook] = useState()
+    
     const [searchproject, setSearchproject] = useState('');
     const [projectresult, setProjectresult] = useState();
     const [usersresp, setUserresp] = useState();
     const [userChange,setUserchange]=useState();
     const searchp=(e)=>{setSearchproject(e.target.value)}
-    const schange=(e)=>{setSearch(e.target.value)}
+    const [imgurl,setImgurl]=useState();
 
     
     
@@ -73,7 +61,7 @@ const searchuser=()=>{
         const body={"authorization":token};
         // console.log("Hello there"+process.env.REACT_APP_NODE)
         axios.post("http://localhost:5000/api/userinfo",body)
-        .then((response)=>{;console.log('My data');console.log(response.data.data);setname(response.data.data.name);setemail(response.data.data.email);setweb(response.data.data.website);setdesc(response.data.data.description);setgit(response.data.data.github);setinsta(response.data.data.instagram);setfacebook(response.data.data.facebook)})
+        .then((response)=>{;setImgurl(response.data.data.profile_pic);console.log(response.data.data);setname(response.data.data.name);setdesc(response.data.data.description);setgit(response.data.data.github)})
         .catch(err=>{console.log('error\n');console.log(err)})
         
 
@@ -100,13 +88,11 @@ const searchuser=()=>{
     const postcomment=(id,comment)=>{
         const c=comment
         console.log(c)
-        const token=`Bearer ${atoken}`
-        const body={"authorization":token,"postid":id,"comment":c}
         // const h={}
-        // console.log(body)
-        axios.post("/comment",body)
-        .then(response=>console.log(response))
-        .catch(err=>console.log(err))
+        // // console.log(body)
+        // axios.post("/comment",body)
+        // .then(response=>console.log(response))
+        // .catch(err=>console.log(err))
         // console.log("Hello there")
       }
     // console.log({rtoken})
@@ -126,7 +112,7 @@ const searchuser=()=>{
     <br></br>
     <div class="container-fluid gedf-wrapper">
         <div class="row">
-            <UserInfo name={name} desc={desc} git={git}/>
+            <UserInfo name={name} desc={desc} git={git} url={imgurl}/>
             
 
             <div class="col-md-6 gedf-main"> 

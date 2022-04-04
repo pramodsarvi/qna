@@ -1,6 +1,6 @@
 // import './post.css';
 import axios from 'axios';
-import { useState, useContext, useEffect } from 'react';
+import { useState } from 'react';
 
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 function ProjectCard2(props)

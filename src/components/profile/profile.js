@@ -8,7 +8,7 @@ import AppContext from '../../context/globalstate';
 import User from './user';
 function Profile()
 {
-  const {rtoken,setRtoken,atoken,setAtoken,isauthenticated,setIsauthenticated,search,setSearch,message}=useContext(AppContext)
+  const {search}=useContext(AppContext)
   const [name, setname] = useState()
   const [email, setemail] = useState()
   const [web, setweb] = useState()
@@ -19,7 +19,7 @@ function Profile()
   const s=search;
   const body={"name":s}
 
-  const call=()=>
+  const callapi=()=>
   {
     try{
       axios.post("/user",body)
@@ -33,11 +33,10 @@ function Profile()
     {
       return <h1>NO error</h1>
     }
-    }
+  }
     useEffect(() => {
-      call()
-      
-    }, [])
+      callapi();
+    },);
       
 
 
@@ -46,6 +45,7 @@ if(name===undefined)
   return <h1>NO results</h1>
 return(
         <>
+        
         <div class="container">
     <div class="main-body">
           <div class="row gutters-sm">

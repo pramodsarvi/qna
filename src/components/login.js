@@ -1,16 +1,14 @@
 import './login.css'
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import { useEffect, useState,useContext } from 'react';
-import state from '../state/state';
-import { useSnapshot } from 'valtio'
-import { Link, useHistory} from 'react-router-dom';
+import {  useHistory} from 'react-router-dom';
 // import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Nav from './navbar'
 import AppContext from '../context/globalstate';
 function Login() {
   const history = useHistory();
-  const {rtoken,setRtoken,atoken,setAtoken,isauthenticated,setIsauthenticated,search,setSearch,message}=useContext(AppContext)
+  const {setRtoken,setAtoken,setIsauthenticated}=useContext(AppContext)
   // console.log({rtoken})
   useEffect(() => {
     // const subscription = props.source.subscribe();

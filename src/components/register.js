@@ -4,72 +4,27 @@ import axios from 'axios';
 import { useState } from 'react';
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import Nav from '../components/navbar'
-import { Button } from 'bootstrap';
 function Register()
 {
     const [name,setName]=useState("")
     const [email,setEmail]=useState("")
-    const [phone,setPhone]=useState("")
     const [web,setWeb]=useState("")
     const [git,setGit]=useState("")
-    const [insta,setInsta]=useState("")
-    const [facebook,setFacebook]=useState("")
-    const [desc,setDesc]=useState("")
-    const [id,setId]=useState('')
-    const [g,setG]=useState('')
     const [password,setPassword]=useState('')
-   const [uname,setUname]=useState('')
    const namechange=(e)=>{setName(e.target.value)}
    const mailchange=(e)=>{setEmail(e.target.value)}
    const webchange=(e)=>{setWeb(e.target.value)}
    const gitchange=(e)=>{setGit(e.target.value)}
-   const deschange=(e)=>{setDesc(e.target.value)}
     const passchange=(e)=>{setPassword(e.target.value)}
-    const unamechange=(e)=>{setUname(e.target.value)}
     
    const register =()=>
    {
-    //    console.log(name);
-    //    console.log(id);
-    //    console.log(email);
-    //    console.log(phone);
-    //    console.log(web);
-    //    console.log(git);
-    //    console.log(facebook);
-    //    console.log(g);
-    //    console.log(insta);
-    //    console.log(desc);
-
-    //    console.log();
-    //    console.log();
-   
    const n=name;
-   const i=id;
    const e=email;
-   const p=phone;
    const w=web;
    const gi=git;
-   const f=facebook;
-   const ge=g;
-   const ins=insta;
-   const dc=desc;
-   const dec=dc.replace("'","\'")
 const pass=password;
-const un=uname;
-// const n="name";
-// const i=2;
-// const e="email@sfsef.com";
-// const p=12354984;
-// const w="web";
-// const gi="git";
-// const f="facebook";
-// const ge="g";
-// const ins="insta";
-// const dec="desc";
-//    const i=id;
-//    const i=id;
-
-const body={"name":n,"username":un,"email":e,"phone":p,"website":w,"facebook":f,"gender":ge,"instagram":ins,"description":dec,"github":gi,"password":pass}
+const body={"name":n,"email":e,"website":w,"github":gi,"password":pass}
 console.log(body)   
 axios.post('http://localhost:5000/register',body)
     .then((response)=>{

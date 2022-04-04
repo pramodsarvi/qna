@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { proxy,useSnapshot } from 'valtio'
 // require('dotenv').config
 import './index.css';
 import {BrowserRouter as Router ,Switch,Route} from 'react-router-dom';
@@ -15,7 +14,7 @@ import Login from './components/login';
 import Profile from './components/profile/profile';
 // import App from './App';
 import reportWebVitals from './reportWebVitals';
-const state=proxy({'token':'abc'});
+
 
 ReactDOM.render(
   <>

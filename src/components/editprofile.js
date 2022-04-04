@@ -1,23 +1,16 @@
 // import './post.css';
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import { useState,useContext, useEffect } from 'react';
-import {  useSnapshot } from 'valtio';
-import state from '../state/state.js';
-import Project2 from './projectcard2'
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Progress from './Progress';
-import AppContext from '../context/globalstate';
 
-import {  Navbar, Nav, NavItem,Container, NavDropdown,MenuItem} from 'react-bootstrap';
+import {  Navbar, Nav,Container, } from 'react-bootstrap';
 import ProjectCard2 from './projectcard2';
 
 function Editprofile()
 {
-  const snap=useSnapshot(state);
   const [file, setFile] = useState('');
   const [filename, setFilename] = useState('Choose File');
-  const [uploadedFile, setUploadedFile] = useState({});
-  const [message, setMessage] = useState('');
   const [uploadPercentage, setUploadPercentage] = useState(0);
 
   const onSubmit = async e => {
@@ -51,22 +44,17 @@ function Editprofile()
           );
         }
       });
-      
+      console.log(res)
       // Clear percentage
       setTimeout(() => setUploadPercentage(0), 10000);
 
-      const { fileName, filePath } = res.data;
 
-      setUploadedFile({ fileName, filePath });
 
-      setMessage('File Uploaded');
    
     
     } catch (err) {
       if (err.response.status === 500) {
-        setMessage('There was a problem with the server');
       } else {
-        setMessage(err.response.data.msg);
       }
       setUploadPercentage(0)
     }
@@ -79,38 +67,18 @@ function Editprofile()
 
   const [name,setName]=useState("")
     const [email,setEmail]=useState("")
-    const [phone,setPhone]=useState("")
-    const [web,setWeb]=useState("")
+     
     const [git,setGit]=useState("")
-    const [insta,setInsta]=useState("")
-    const [facebook,setFacebook]=useState("")
     const [desc,setDesc]=useState("")
-    const [id,setId]=useState('')
-    const [g,setG]=useState('')
-    const [password,setPassword]=useState('')
-   const [uname,setUname]=useState('')
-
    const [myprojects,setMyprojects]=useState()
 
-    const change=(e)=>{setId(e.target.value)}
    const namechange=(e)=>{setName(e.target.value)}
    const mailchange=(e)=>{setEmail(e.target.value)}
-   const pchange=(e)=>{setPhone(e.target.value)}
-   const webchange=(e)=>{setWeb(e.target.value)}
    const gitchange=(e)=>{setGit(e.target.value)}
-   const instachange=(e)=>{setInsta(e.target.value)}
-   const fbchange=(e)=>{setFacebook(e.target.value)}
    const deschange=(e)=>{setDesc(e.target.value)}
-   const gchange=(e)=>{setG(e.target.value)}
-    const passchange=(e)=>{setPassword(e.target.value)}
-    const unamechange=(e)=>{setUname(e.target.value)}
     
     
 const call=()=>{
-  var to="Bearer ";
-  const tok=to.concat(JSON.parse(localStorage.getItem('accessToken')));
-  const token=tok.replace(/["']/g, "")
-  const body={"authorization":token}
 //         const searchstring=`${searchproject}`;
 //         console.log(searchproject)
 //         console.log(searchstring+"hi")
@@ -123,7 +91,7 @@ const getdata=()=>{
         const token=tok.replace(/["']/g, "")
   const body={"authorization":token}
   axios.post("http://localhost:5000/api/userinfo",body)
-        .then((response)=>{setName(response.data.data.name);setEmail(response.data.data.email);setDesc(response.data.data.description);setGit(response.data.data.github);})
+        .then((response)=>{;setName(response.data.data.name);setEmail(response.data.data.email);setDesc(response.data.data.description);setGit(response.data.data.github);})
         .catch(err=>{console.log('error\n');console.log(err)})
       
 }
@@ -154,10 +122,7 @@ axios.post('http://localhost:5000/api/updateprofile',body)
     getdata();
     getmyprojects();
   },[]);
-  const logout=()=>{
-    localStorage.removeItem('accessToken')
-    localStorage.removeItem('refreshToken')
-  }
+ 
     return(
         <>
           <div>

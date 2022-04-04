@@ -1,11 +1,10 @@
 import './post.css';
-import { useContext,useState } from 'react';
+import { useState } from 'react';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import AppContext from '../../context/globalstate';
 import axios from 'axios';
 
 function Post(props)
-{    const {rtoken,setRtoken,atoken,setAtoken,isauthenticated,setIsauthenticated,message}=useContext(AppContext);
+{    
 const [title,setTitle]=useState("");
 const [git,setGit]=useState("");
 const [skill,setSkill]=useState("");
@@ -15,7 +14,7 @@ const changeSkill=(e)=>{setSkill(e.target.value)}
 const post=()=>{
 console.log("post")
 const t=title;
-const d=skill.replace("'","\'");
+const d=skill.replace("'","'");
 const desc=d;
 const token=`Bearer ${localStorage.getItem('accessToken')}`;
 const body={"authorization":token,"title":t,"skills":desc,'github':git}

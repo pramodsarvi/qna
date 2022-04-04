@@ -97,6 +97,7 @@ return (
                 </div>
               </form>
               <a href='/register'>Register Here</a>
+              <p>Wassup bro</p>
             </div>
           </div>
         </div>

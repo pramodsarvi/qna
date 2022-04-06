@@ -20,7 +20,7 @@ function MyVerticallyCenteredModal(props) {
         const token=tok.replace(/["']/g, "")
     const body={"authorization":token,password:password1,otp:otp}
     console.log(body)
-    axios.post('http://localhost:5000/api/changePassword',body)
+    axios.post('http://3.108.227.173:5000/api/changePassword',body)
 .then((response)=>{}
 )
       setMessage()
@@ -83,7 +83,7 @@ function MyVerticallyCenteredModal(props) {
 
     const body={"authorization":token}
     console.log(body)
-    axios.post('http://localhost:5000/api/sendEmail',body)
+    axios.post('http://3.108.227.173:5000/api/sendEmail',body)
 .then((response)=>{}
 )
     }

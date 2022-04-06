@@ -26,7 +26,7 @@ function Register()
 const pass=password;
 const body={"name":n,"email":e,"website":w,"github":gi,"password":pass}
 console.log(body)   
-axios.post('http://localhost:5000/register',body)
+axios.post('http://3.108.227.173:5000/register',body)
     .then((response)=>{
       console.log(response.data);
     })

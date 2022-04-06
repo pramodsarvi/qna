@@ -35,7 +35,7 @@ function Login() {
     const b=password;
     // console.log(a)
     const body={"username":a,"password":b}
-    axios.post('http://localhost:5000/login',body)
+    axios.post('http://3.108.227.173:5000/login',body)
     .then((response)=>{
       console.log("login")
       setIsauthenticated("true");

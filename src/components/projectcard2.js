@@ -11,7 +11,7 @@ function ProjectCard2(props)
         const tok=to.concat(JSON.parse(localStorage.getItem('accessToken')));
         const token=tok.replace(/["']/g, "")
   const body={"authorization":token,projectid:props.id}
-  axios.post("http://localhost:5000/api/deleteproject",body)
+  axios.post("http://3.108.227.173:5000/api/deleteproject",body)
         .then((response)=>{setDisplay('None')})
         .catch(err=>{console.log('error\n');console.log(err)})
     }

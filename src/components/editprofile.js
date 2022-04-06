@@ -31,7 +31,7 @@ function Editprofile()
       console.log("formData")
       console.log(formData)
 
-      const res = await axios.post('http://localhost:5000/api/uploadimage', formData, {
+      const res = await axios.post('http://3.108.227.173:5000/api/uploadimage', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           'authorization':token
@@ -90,7 +90,7 @@ const getdata=()=>{
         const tok=to.concat(JSON.parse(localStorage.getItem('accessToken')));
         const token=tok.replace(/["']/g, "")
   const body={"authorization":token}
-  axios.post("http://localhost:5000/api/userinfo",body)
+  axios.post("http://3.108.227.173:5000/api/userinfo",body)
         .then((response)=>{;setName(response.data.data.name);setEmail(response.data.data.email);setDesc(response.data.data.description);setGit(response.data.data.github);})
         .catch(err=>{console.log('error\n');console.log(err)})
       
@@ -100,7 +100,7 @@ const getmyprojects=()=>{
         const tok=to.concat(JSON.parse(localStorage.getItem('accessToken')));
         const token=tok.replace(/["']/g, "")
   const body={"authorization":token}
-  axios.post("http://localhost:5000/api/getmyprojects",body)
+  axios.post("http://3.108.227.173:5000/api/getmyprojects",body)
         .then((response)=>{setMyprojects(response.data.data)})
         .catch(err=>{console.log('error\n');console.log(err)})
 }
@@ -109,7 +109,7 @@ const update=()=>{
         const tok=to.concat(JSON.parse(localStorage.getItem('accessToken')));
         const token=tok.replace(/["']/g, "")
     const body={"authorization":token,name:name,email:email,description:desc,github:git}
-axios.post('http://localhost:5000/api/updateprofile',body)
+axios.post('http://3.108.227.173:5000/api/updateprofile',body)
 .then((response)=>{console.log(response)}
 
 

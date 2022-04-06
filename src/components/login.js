@@ -6,6 +6,7 @@ import {  useHistory} from 'react-router-dom';
 import axios from 'axios';
 import Nav from './navbar'
 import AppContext from '../context/globalstate';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 function Login() {
   const history = useHistory();
   const {setRtoken,setAtoken,setIsauthenticated}=useContext(AppContext)
@@ -96,7 +97,9 @@ return (
                   <p></p>
                 </div>
               </form>
-              <a href='/register'>Register Here</a>
+              <Link to='/register'>
+              <button >Register Here</button>
+              </Link>
             </div>
           </div>
         </div>

@@ -34,7 +34,7 @@ function FinalFeed()
         console.log(searchstring+"hi")
     const body={"authorization":token,search:searchstring}
     console.log(body)
-    axios.post('http://3.108.227.173:5000/api/getprojects',body)
+    axios.post('http://13.233.4.104:5000/api/getprojects',body)
 .then((response)=>{setProjectresult(response.data.data)}
 )
 
@@ -46,7 +46,7 @@ const searchuser=()=>{
     const tok=to.concat(JSON.parse(localStorage.getItem('accessToken')));
     const token=tok.replace(/["']/g, "")
     const body={"authorization":token,name:`${userChange}`}
-    axios.post('http://3.108.227.173:5000/api/user',body).then((response)=>{setUserresp(response.data.data)})
+    axios.post('http://13.233.4.104:5000/api/user',body).then((response)=>{setUserresp(response.data.data)})
  }
 
 
@@ -60,7 +60,7 @@ const searchuser=()=>{
         // const token=`Bearer ${sessionStorage.getItem('accessToken')}`
         const body={"authorization":token};
         // console.log("Hello there"+process.env.REACT_APP_NODE)
-        axios.post("http://3.108.227.173:5000/api/userinfo",body)
+        axios.post("http://13.233.4.104:5000/api/userinfo",body)
         .then((response)=>{;setImgurl(response.data.data.profile_pic);console.log(response.data.data);setname(response.data.data.name);setdesc(response.data.data.description);setgit(response.data.data.github)})
         .catch(err=>{console.log('error\n');console.log(err)})
         
